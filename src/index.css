@@ -1,0 +1,21 @@
+.main-card {
+  width: 300px;
+  margin-top: 50px;
+}
+
+.card-item {
+  display: flex;
+  align-items: center;
+  /* justify-content: c; */
+}
+
+.item-flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* justify-content: ; */
+}
+
+.text-font {
+  font-size: 12px;
+}
