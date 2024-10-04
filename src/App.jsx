@@ -5,8 +5,11 @@ import AuthService from "./services/auth";
 import { useDispatch } from "react-redux";
 import { signUserSuccess } from "./slice/auth";
 import { getItem } from "./helpers/persistence-store";
+import ArticleService from "./services/article";
+import { getArticlesStart, getArticlesSuccess } from "./slice/article";
 const App = () => {
   const dispatch = useDispatch();
+
   const getUser = async () => {
     try {
       const response = await AuthService.getUser();
@@ -17,8 +20,17 @@ const App = () => {
   };
 
   useEffect(() => {
+    // get user in token
     const token = getItem("token");
     if (token) getUser();
+
+    // get articles
+    ArticleService.getArticles()
+      .then((data) => {
+        dispatch(getArticlesStart());
+        dispatch(getArticlesSuccess(data.articles));
+      })
+      .catch((error) => console.log(error));
   }, []);
   return (
     <div>
