@@ -1,15 +1,39 @@
 import React, { useState } from "react";
 import { Input } from "../ui";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  loginUserStart,
+  registerUserFailure,
+  registerUserStart,
+  registerUserSuccess,
+} from "../slice/auth";
+import AuthService from "../services/auth";
 
 const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const dispatch = useDispatch();
+  const { isLoading } = useSelector((state) => state?.auth);
+
+  const hanlerSubmit = async (e) => {
+    e.preventDefault();
+    dispatch(registerUserStart());
+    const user = { username: name, email, password };
+    try {
+      const response = await AuthService.userRegister(user);
+      console.log(response);
+      dispatch(registerUserSuccess());
+    } catch (error) {
+      dispatch(registerUserFailure());
+    }
+  };
   return (
     <div>
       <div className="text-center mt-5">
         <main className="form-signin w-25 m-auto">
-          <form>
+          <form onClick={hanlerSubmit}>
             {/* <img className="mb-2" src={icon} alt="" width="72" height="60" /> */}
             <h1 className="h3 mb-3 fw-normal">Please register</h1>
             <Input
@@ -33,9 +57,12 @@ const Register = () => {
               state={password}
               setState={setPassword}
             />
-            <button className="w-100 btn btn-lg btn-primary mt-2" type="submit">
-              {/* {isLoading ? "loading..." : "Register"} */}
-              Register
+            <button
+              className="w-100 btn btn-lg btn-primary mt-2"
+              disabled={isLoading}
+              type="submit"
+            >
+              {isLoading ? "loading..." : "Register"}
             </button>
           </form>
         </main>
