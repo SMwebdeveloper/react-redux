@@ -16,7 +16,7 @@ const Login = () => {
 
   useEffect(() => {
     if (loggedIn) navigate("/");
-  }, []);
+  }, [loggedIn]);
 
   const handlerSubmit = async (e) => {
     e.preventDefault();

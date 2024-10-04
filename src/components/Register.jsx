@@ -16,7 +16,7 @@ const Register = () => {
 
   useEffect(() => {
     if (loggedIn) navigate("/");
-  }, []);
+  }, [loggedIn]);
   const hanlerSubmit = async (e) => {
     e.preventDefault();
     dispatch(signUserStart());
