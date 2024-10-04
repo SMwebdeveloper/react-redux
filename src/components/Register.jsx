@@ -3,7 +3,7 @@ import { Input } from "../ui";
 import { useDispatch, useSelector } from "react-redux";
 import { signUserFailure, signUserStart, signUserSuccess } from "../slice/auth";
 import AuthService from "../services/auth";
-
+import { ValidationError } from "../components";
 const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -27,9 +27,10 @@ const Register = () => {
     <div>
       <div className="text-center mt-5">
         <main className="form-signin w-25 m-auto">
-          <form onClick={hanlerSubmit}>
+          <form>
             {/* <img className="mb-2" src={icon} alt="" width="72" height="60" /> */}
             <h1 className="h3 mb-3 fw-normal">Please register</h1>
+            <ValidationError />
             <Input
               type={"text"}
               placeholder={"username"}
@@ -55,6 +56,7 @@ const Register = () => {
               className="w-100 btn btn-lg btn-primary mt-2"
               disabled={isLoading}
               type="submit"
+              onClick={hanlerSubmit}
             >
               {isLoading ? "loading..." : "Register"}
             </button>
