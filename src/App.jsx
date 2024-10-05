@@ -25,9 +25,9 @@ const App = () => {
     if (token) getUser();
 
     // get articles
+    dispatch(getArticlesStart());
     ArticleService.getArticles()
       .then((data) => {
-        dispatch(getArticlesStart());
         dispatch(getArticlesSuccess(data.articles));
       })
       .catch((error) => console.log(error));

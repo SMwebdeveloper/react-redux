@@ -14,8 +14,8 @@ export const articleSlice = createSlice({
             state.isLoading = true
         },
         getArticlesSuccess: (state, action) => {
-            state.isLoading = false
             state.articles = action.payload
+            state.isLoading = false
         },
         getAritclesFailure: (state, action) => {
             state.error = action.payload
