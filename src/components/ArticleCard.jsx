@@ -1,8 +1,10 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const ArticleCard = ({ item, getArticles }) => {
   const { loggedIn, user } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
   return (
     <div className="col" key={item.id}>
       <div className="card h-100 shadow-sm">
