@@ -8,6 +8,7 @@ import {
   getArticleDetailSuccess,
 } from "../slice/article";
 import { Loader } from "../ui";
+import moment from "moment";
 
 const ArticleDetail = () => {
   const { slug } = useParams();
@@ -35,17 +36,19 @@ const ArticleDetail = () => {
               <span className="fw-bold">Created at:</span>{" "}
               {moment(articleDetail.createdAt).format("DD MMM, YYYY")}
             </p>
-            <div class="col-md-6">
-              <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-                <div class="col p-4 d-flex flex-column position-static">
-                  <strong class="d-inline-block mb-2 text-primary text-uppercase">
+            <div className="col-md-6">
+              <div className="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                <div className="col p-4 d-flex flex-column position-static">
+                  <strong className="d-inline-block mb-2 text-primary text-uppercase">
                     {articleDetail.author.username}
                   </strong>
-                  <p class="card-text mb-auto">{articleDetail.author.bio}</p>
+                  <p className="card-text mb-auto">
+                    {articleDetail.author.bio}
+                  </p>
                 </div>
-                <div class="col-auto d-none d-lg-block">
+                <div className="col-auto d-none d-lg-block">
                   <svg
-                    class="bd-placeholder-img"
+                    className="bd-placeholder-img"
                     width="200"
                     height={"100%"}
                     xmlns="http://www.w3.org/2000/svg"
