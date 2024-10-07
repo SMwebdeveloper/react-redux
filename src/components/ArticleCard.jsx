@@ -1,10 +1,28 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import {
+  getAritclesFailure,
+  getArticleDetailSuccess,
+  getArticlesStart,
+} from "../slice/article";
+import ArticleService from "../services/article";
 
 const ArticleCard = ({ item, getArticles }) => {
   const { loggedIn, user } = useSelector((state) => state.auth);
   const navigate = useNavigate();
+  const dispacth = useDispatch();
+
+  const deleteArticle = async (slug) => {
+    dispacth(getArticlesStart());
+    try {
+      const response = await ArticleService.deleteArticle(slug);
+      dispacth(getArticleDetailSuccess(response.articles));
+      getArticles();
+    } catch (error) {
+      dispacth(getAritclesFailure());
+    }
+  };
   return (
     <div className="col" key={item.id}>
       <div className="card h-100 shadow-sm">
@@ -43,7 +61,11 @@ const ArticleCard = ({ item, getArticles }) => {
                 >
                   Edit
                 </button>
-                <button type="button" className="btn btn-sm btn-outline-danger">
+                <button
+                  type="button"
+                  className="btn btn-sm btn-outline-danger"
+                  onClick={() => deleteArticle(item.slug)}
+                >
                   Delete
                 </button>
               </>

@@ -25,6 +25,14 @@ const Main = () => {
       console.log(error);
     }
   };
+  const getArticles = async () => {
+    dispatch(getArticlesStart());
+    ArticleService.getArticles()
+      .then((data) => {
+        dispatch(getArticlesSuccess(data.articles));
+      })
+      .catch((error) => dispatch(getAritclesFailure()));
+  };
 
   useEffect(() => {
     // get user in token
@@ -32,12 +40,7 @@ const Main = () => {
     if (token) getUser();
 
     // get articles
-    dispatch(getArticlesStart());
-    ArticleService.getArticles()
-      .then((data) => {
-        dispatch(getArticlesSuccess(data.articles));
-      })
-      .catch((error) => dispatch(getAritclesFailure()));
+    getArticles();
   }, []);
   return (
     <>
@@ -46,7 +49,7 @@ const Main = () => {
         <div>
           <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
             {articles.map((item, index) => (
-              <ArticleCard item={item} key={index} />
+              <ArticleCard item={item} key={index} getArticles={getArticles} />
             ))}
           </div>
         </div>
