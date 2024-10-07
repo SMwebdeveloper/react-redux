@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import {
   ArticleDetail,
   CreateArticle,
+  EditArticle,
   Login,
   Main,
   Navbar,
@@ -39,6 +40,7 @@ const App = () => {
           <Route path="/register" element={<Register />} />
           <Route path="/article/:slug" element={<ArticleDetail />} />
           <Route path="/create-article" element={<CreateArticle />} />
+          <Route path="/edit-article/:slug" element={<EditArticle />} />
         </Routes>
       </div>
     </div>

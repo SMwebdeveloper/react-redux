@@ -56,6 +56,7 @@ const ArticleCard = ({ item, getArticles }) => {
             {loggedIn && user.username === item.author.username && (
               <>
                 <button
+                  onClick={() => navigate(`/edit-article/${item.slug}`)}
                   type="button"
                   className="btn btn-sm btn-outline-secondary"
                 >

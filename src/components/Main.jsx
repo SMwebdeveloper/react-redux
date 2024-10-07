@@ -35,10 +35,6 @@ const Main = () => {
   };
 
   useEffect(() => {
-    // get user in token
-    const token = getItem("token");
-    if (token) getUser();
-
     // get articles
     getArticles();
   }, []);
