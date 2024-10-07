@@ -27,6 +27,12 @@ const Navbar = () => {
             <p className="m-0 me-2 py-2 text-dark text-decaretion-none">
               {user?.username}
             </p>
+            <Link
+              to="/create-article"
+              className="link-offset-2 link-offset-3-hover my-2 link-underline link-underline-opacity-0 link-underline-opacity-75-hover mx-2"
+            >
+              Create
+            </Link>
             <button className="btn btn-outline-danger" onClick={logOutHandler}>
               Logout
             </button>

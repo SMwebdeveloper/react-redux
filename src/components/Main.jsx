@@ -1,10 +1,44 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { ArticleCard } from "../components";
 import { Loader } from "../ui";
+import AuthService from "../services/auth";
+import { signUserSuccess } from "../slice/auth";
+import { getItem } from "../helpers/persistence-store";
+import {
+  getAritclesFailure,
+  getArticlesStart,
+  getArticlesSuccess,
+} from "../slice/article";
+import ArticleService from "../services/article";
 
 const Main = () => {
   const { articles, isLoading } = useSelector((state) => state.article);
+
+  const dispatch = useDispatch();
+
+  const getUser = async () => {
+    try {
+      const response = await AuthService.getUser();
+      dispatch(signUserSuccess(response.user));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    // get user in token
+    const token = getItem("token");
+    if (token) getUser();
+
+    // get articles
+    dispatch(getArticlesStart());
+    ArticleService.getArticles()
+      .then((data) => {
+        dispatch(getArticlesSuccess(data.articles));
+      })
+      .catch((error) => dispatch(getAritclesFailure()));
+  }, []);
   return (
     <>
       {isLoading && <Loader />}
